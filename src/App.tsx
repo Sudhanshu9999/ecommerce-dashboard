@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import DashboardPage from "./pages/DashboardPage";
+import ProductsPage from "./pages/ProductsPage";
+import OrdersPage from "./pages/OrdersPage";
 
-function App() {
+const App: React.FC = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Router>
+      <div className="flex min-h-screen">
+        {/* Sidebar */}
+        <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+
+        {/* Main Content */}
+        <div
+          className={`flex-1 flex flex-col transition-all duration-300 ${
+            isSidebarOpen ? "ml-0" : "xl:ml-64"
+          }`}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          {/* Navbar */}
+          <Navbar onMenuClick={toggleSidebar} />
+
+          {/* Content */}
+          <div className="flex-1 bg-gray-100 p-4">
+            <Routes>
+              <Route path="/" element={<DashboardPage />} />
+              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/orders" element={<OrdersPage />} />
+            </Routes>
+          </div>
+        </div>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
