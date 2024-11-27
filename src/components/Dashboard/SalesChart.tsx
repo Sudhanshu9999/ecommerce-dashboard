@@ -9,7 +9,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Mock data for sales
 const salesData = [
   { day: "Mon", sales: 300 },
   { day: "Tue", sales: 450 },

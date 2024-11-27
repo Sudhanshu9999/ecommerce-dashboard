@@ -9,7 +9,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Mock data for stock levels
 const stockData = [
   { product: "Laptop", stock: 50 },
   { product: "Phone", stock: 120 },
